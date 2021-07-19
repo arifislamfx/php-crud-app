@@ -12,6 +12,10 @@ if(isset($_GET['status'])) {
     }
 }
 
+if(isset($_POST['update_info'])) {
+  $msg = $devsadmin->update_data($_POST);
+}
+
 
 
 ?>
@@ -35,15 +39,19 @@ if(isset($_GET['status'])) {
    <div class="container my-4 p-4 shadow">
        <h2 class="text-center mb-2 text-blue" > <a style="text-decoration: none;" href="index.php"> webDevs student list </a> </h2>
 
+       <?php if (isset($msg)) { echo $msg;} ?>
        
        <!-- form -->
     <form class="form" action="" method="post" enctype="multipart/form-data" >
-        <input class="form-control mb-2" type="text" name="std_name" value="<?php echo $returnData['std_name']; ?>" >
+        <input class="form-control mb-2" type="text" name="u_std_name" value="<?php echo $returnData['std_name']; ?>" >
 
-        <input class="form-control mb-2 " type="number" name="std_roll" value="<?php echo $returnData['std_roll']; ?>" >
+        <input class="form-control mb-2 " type="number" name="u_std_roll" value="<?php echo $returnData['std_roll']; ?>" >
         <label for="upload"> Upload your file </label>
-        <input class="form-control mb-2" type="file" name="std_img" >
-        <input class="form-control mb-2 btn btn-warning" type="submit" value="Add info" name="add_info">
+        <input class="form-control mb-2" type="file" name="u_std_img" >
+
+        <input type="hidden" name="id" value="<?php echo $returnData['id']; ?>" >
+
+        <input class="form-control mb-2 btn btn-warning" type="submit" value="Update info" name="update_info">
 
     </form>
    </div>

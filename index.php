@@ -1,4 +1,5 @@
 <?php 
+
 include('function.php');
 
 $devsadmin = new webDevs();
@@ -8,6 +9,15 @@ if(isset($_POST['add_info'])) {
 }
 
 $students = $devsadmin->display_data();
+
+// delete items
+
+if(isset($_GET['status'])) {
+    if($_GET['status'] = 'delete' ) {
+        $deleteId = $_GET['id'];
+        $delete_msg = $devsadmin->deleteItem($deleteId);
+    }
+}
 
 
 ?>
@@ -31,10 +41,13 @@ $students = $devsadmin->display_data();
    <div class="container my-4 p-4 shadow">
        <h2 class="text-center mb-2 text-blue" > <a style="text-decoration: none;" href="index.php"> webDevs student list </a> </h2>
 
-       <?php if (isset($returnMsg)) {echo $returnMsg;} ?>
+      
+       <?php if (isset($delete_msg)) {echo $delete_msg;} ?>
 
        <!-- form -->
     <form class="form" action="" method="post" enctype="multipart/form-data" >
+    <?php if (isset($returnMsg)) {echo $returnMsg;} ?>
+
         <input class="form-control mb-2" type="text" name="std_name" placeholder="enter your name">
         <input class="form-control mb-2 " type="number" name="std_roll" placeholder="enter your roll">
         <label for="upload"> Upload your file </label>
@@ -64,7 +77,7 @@ $students = $devsadmin->display_data();
                 <td> <img style="width: 80px;" src="upload/<?php echo $student['std_img']; ?>" alt=""> </td>
                 <td>
                     <a class="btn btn-success" href="edit.php?status=edit&&id=<?php echo $student['id']; ?>" >Edit </a>
-                    <a class="btn btn-danger" href="#">Delete</a>
+                    <a class="btn btn-danger" href="?status=delete&&id=<?php echo $student['id']; ?>">Delete</a>
                 </td>
             </tr>
             <?php } ?>
